@@ -8,6 +8,7 @@ import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.controller.Mov
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -25,11 +26,14 @@ public final class UpdateMovieHandler implements OperationHandler {
     final String genre = console.readRequired("Genre: ");
     final String originalLanguage = console.readRequired("Original language: ");
 
-    final String subtitles = console.readRequired("Spanish subtitles? (S/N): ");
+    final String subtitles = console.readRequired("Spanish subtitles? (S/N or TRUE/FALSE): ");
+    final String normalizedSubtitles = subtitles.trim().toUpperCase(Locale.ROOT);
     final boolean spanishSubtitles =
-        subtitles.equalsIgnoreCase("S")
-            || subtitles.equalsIgnoreCase("SI")
-            || subtitles.equalsIgnoreCase("YES");
+        normalizedSubtitles.equals("S")
+            || normalizedSubtitles.equals("SI")
+            || normalizedSubtitles.equals("YES")
+            || normalizedSubtitles.equals("Y")
+            || normalizedSubtitles.equals("TRUE");
 
     final String countriesInput =
         console.readRequired("Countries of origin (separated by commas): ");
