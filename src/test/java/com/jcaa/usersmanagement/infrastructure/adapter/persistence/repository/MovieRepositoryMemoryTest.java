@@ -1,4 +1,4 @@
-﻿package com.jcaa.usersmanagement.infrastructure.adapter.persistence.repository;
+package com.jcaa.usersmanagement.infrastructure.adapter.persistence.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
