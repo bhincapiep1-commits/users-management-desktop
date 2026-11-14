@@ -1,3 +1,4 @@
+
 package com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.cli.menu;
 
 import java.util.Optional;
@@ -14,6 +15,11 @@ public enum MenuOption {
   UPDATE_USER(4, "Update user"),
   DELETE_USER(5, "Delete user"),
   LOGIN(6, "Login"),
+  LIST_MOVIES(7, "List all movies"),
+  FIND_MOVIE(8, "Find movie by ID"),
+  CREATE_MOVIE(9, "Create movie"),
+  UPDATE_MOVIE(10, "Update movie"),
+  DELETE_MOVIE(11, "Delete movie"),
   EXIT(0, "Exit");
 
   private final int number;
@@ -28,4 +34,3 @@ public enum MenuOption {
     return Optional.empty();
   }
 }
-

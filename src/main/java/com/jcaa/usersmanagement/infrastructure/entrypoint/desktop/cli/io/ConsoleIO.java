@@ -1,6 +1,6 @@
+
 package com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.cli.io;
 
-import java.io.PrintStream;
 import java.util.Scanner;
 import lombok.RequiredArgsConstructor;
 
@@ -8,50 +8,44 @@ import lombok.RequiredArgsConstructor;
 public final class ConsoleIO {
 
   private final Scanner scanner;
-  private final PrintStream out;
-
-  // â”€â”€ input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  private final java.io.PrintStream output;
 
   public String readRequired(final String prompt) {
-    String value;
-    do {
-      out.print(prompt);
-      value = scanner.nextLine().trim();
-      if (value.isBlank()) {
-        out.println("  Value cannot be blank. Please try again.");
-      }
-    } while (value.isBlank());
+    output.print(prompt);
+    final String value = scanner.nextLine().trim();
+
+    if (value.isEmpty()) {
+      throw new IllegalArgumentException("This field is required.");
+    }
+
     return value;
   }
 
   public String readOptional(final String prompt) {
-    out.print(prompt);
+    output.print(prompt);
     return scanner.nextLine().trim();
   }
 
   public int readInt(final String prompt) {
-    while (true) {
-      out.print(prompt);
-      final String raw = scanner.nextLine().trim();
-      try {
-        return Integer.parseInt(raw);
-      } catch (final NumberFormatException ignored) {
-        out.println("  Invalid input. Please enter a number.");
-      }
+    output.print(prompt);
+    final String value = scanner.nextLine().trim();
+
+    try {
+      return Integer.parseInt(value);
+    } catch (final NumberFormatException exception) {
+      throw new IllegalArgumentException("Please enter a valid integer.");
     }
   }
 
-  // â”€â”€ output â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-
   public void println(final String message) {
-    out.println(message);
+    output.println(message);
   }
 
   public void println() {
-    out.println();
+    output.println();
   }
 
   public void printf(final String format, final Object... args) {
-    out.printf(format, args);
+    output.printf(format, args);
   }
 }
