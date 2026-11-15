@@ -8,6 +8,13 @@ public final class PersistenceException extends RuntimeException {
   private static final String MESSAGE_EMAIL = "Failed to find user with email: '%s'.";
   private static final String MESSAGE_ALL = "Failed to retrieve all users.";
   private static final String MESSAGE_DELETE = "Failed to delete user with ID: '%s'.";
+
+  private static final String MESSAGE_MOVIE_SAVE = "Failed to save movie with ID: '%s'.";
+  private static final String MESSAGE_MOVIE_UPDATE = "Failed to update movie with ID: '%s'.";
+  private static final String MESSAGE_MOVIE_FIND = "Failed to find movie with ID: '%s'.";
+  private static final String MESSAGE_MOVIE_ALL = "Failed to retrieve all movies.";
+  private static final String MESSAGE_MOVIE_DELETE = "Failed to delete movie with ID: '%s'.";
+
   private static final String MESSAGE_CONNECTION = "Could not establish database connection.";
 
   private PersistenceException(final String message, final Throwable cause) {
@@ -40,6 +47,30 @@ public final class PersistenceException extends RuntimeException {
   public static PersistenceException becauseDeleteFailed(
       final String userId, final Throwable cause) {
     return new PersistenceException(String.format(MESSAGE_DELETE, userId), cause);
+  }
+
+  public static PersistenceException becauseMovieSaveFailed(
+      final String movieId, final Throwable cause) {
+    return new PersistenceException(String.format(MESSAGE_MOVIE_SAVE, movieId), cause);
+  }
+
+  public static PersistenceException becauseMovieUpdateFailed(
+      final String movieId, final Throwable cause) {
+    return new PersistenceException(String.format(MESSAGE_MOVIE_UPDATE, movieId), cause);
+  }
+
+  public static PersistenceException becauseMovieFindByIdFailed(
+      final String movieId, final Throwable cause) {
+    return new PersistenceException(String.format(MESSAGE_MOVIE_FIND, movieId), cause);
+  }
+
+  public static PersistenceException becauseMovieFindAllFailed(final Throwable cause) {
+    return new PersistenceException(MESSAGE_MOVIE_ALL, cause);
+  }
+
+  public static PersistenceException becauseMovieDeleteFailed(
+      final String movieId, final Throwable cause) {
+    return new PersistenceException(String.format(MESSAGE_MOVIE_DELETE, movieId), cause);
   }
 
   public static PersistenceException becauseConnectionFailed(final Throwable cause) {
