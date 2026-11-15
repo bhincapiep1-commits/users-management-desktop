@@ -1,4 +1,3 @@
-
 package com.jcaa.usersmanagement.infrastructure.config;
 
 import com.jcaa.usersmanagement.application.port.in.CreateMovieUseCase;
@@ -28,7 +27,7 @@ import com.jcaa.usersmanagement.infrastructure.adapter.email.JavaMailEmailSender
 import com.jcaa.usersmanagement.infrastructure.adapter.email.SmtpConfig;
 import com.jcaa.usersmanagement.infrastructure.adapter.persistence.config.DatabaseConfig;
 import com.jcaa.usersmanagement.infrastructure.adapter.persistence.config.DatabaseConnectionFactory;
-import com.jcaa.usersmanagement.infrastructure.adapter.persistence.repository.MovieRepositoryMemory;
+import com.jcaa.usersmanagement.infrastructure.adapter.persistence.repository.MovieRepositoryMySQL;
 import com.jcaa.usersmanagement.infrastructure.adapter.persistence.repository.UserRepositoryMySQL;
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.controller.MovieController;
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.controller.UserController;
@@ -59,8 +58,7 @@ public final class DependencyContainer {
 
     final Connection connection = buildDatabaseConnection(properties);
     final UserRepositoryMySQL userRepository = new UserRepositoryMySQL(connection);
-
-    final MovieRepositoryMemory movieRepository = new MovieRepositoryMemory();
+    final MovieRepositoryMySQL movieRepository = new MovieRepositoryMySQL(connection);
 
     final JavaMailEmailSenderAdapter emailSender =
         new JavaMailEmailSenderAdapter(buildSmtpConfig(properties));
